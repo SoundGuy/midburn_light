@@ -27,7 +27,9 @@ CRGB leds[NUM_LEDS];
 
 //Example for KY-026
 //TkkrLab
-int Led = 13 ;// define LED Interface (led digital)
+int RedLedLeft = 13 ;// define LED Interface (led digital)
+int RedLedRight = 12 ;// define LED Interface (led digital)
+int OrangeLed = 9 ;// define LED Interface (led digital)
 int buttonpin = 4; // define the flame sensor interface (sensor digital)
 int analoog = A4; // define the flame sensor interface (sensor analog)
  
@@ -44,7 +46,9 @@ void setup() {
   // set master brightness control
   FastLED.setBrightness(BRIGHTNESS);
 
-  pinMode (Led, OUTPUT) ;// define LED as output interface
+  pinMode (RedLedRight, OUTPUT) ;// define LED as output interface
+  pinMode (RedLedLeft, OUTPUT) ;// define LED as output interface
+  pinMode (OrangeLed, OUTPUT) ;// define LED as output interface
   pinMode (buttonpin, INPUT) ;// output interface defines the flame sensor
   pinMode (analoog, INPUT) ;// output interface defines the flame sensor
   Serial.begin(9600);
@@ -147,12 +151,17 @@ void lin()
   {
     pos == 0;
     FastLED.clear();
+    digitalWrite (RedLedRight, LOW);
+    digitalWrite (RedLedLeft, LOW);
+    digitalWrite (OrangeLed, LOW);
   }
   else{
-  
+  digitalWrite (RedLedRight, HIGH);
+  digitalWrite (RedLedLeft, HIGH);
+  digitalWrite (OrangeLed, HIGH);
   // a colored dot sweeping back and forth, with fading trails
   fadeToBlackBy( leds, NUM_LEDS, 5);
- 
+
   leds[pos] += CHSV( gHue, 255, 192);
   }
 }
